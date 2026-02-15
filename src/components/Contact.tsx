@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { playHoverSound, playClickSound, playCoinSound, playPowerUpSound } from '../utils/soundEffects';
+import { playHoverSound, playClickSound, playPowerUpSound } from '../utils/soundEffects';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
