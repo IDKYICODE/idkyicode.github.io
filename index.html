@@ -28,6 +28,10 @@
             },
             backgroundImage: {
               'grid-pattern': "linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)",
+            },
+            animation: {
+              'spin-slow': 'spin 3s linear infinite',
+              'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             }
           }
         }
@@ -38,6 +42,7 @@
         background-color: #111;
         color: #e0e0e0;
         cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="fill:white"><rect width="10" height="10"/></svg>'), auto;
+        overflow-x: hidden;
       }
       /* Custom Scrollbar for Retro Feel */
       ::-webkit-scrollbar {
@@ -71,7 +76,10 @@
         background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
         background-size: 100% 2px, 3px 100%;
         pointer-events: none;
+        animation: flicker 0.15s infinite;
       }
+      
+      /* Animations */
       @keyframes scanline {
         0% { bottom: 100%; }
         100% { bottom: -100px; }
@@ -80,17 +88,94 @@
         0%, 100% { opacity: 1; }
         50% { opacity: 0; }
       }
+      @keyframes flicker {
+        0% { opacity: 0.97; }
+        5% { opacity: 0.95; }
+        10% { opacity: 0.9; }
+        15% { opacity: 0.95; }
+        20% { opacity: 0.99; }
+        50% { opacity: 0.95; }
+        80% { opacity: 0.93; }
+        100% { opacity: 0.98; }
+      }
+      @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      
+      /* Utility Classes */
       .animate-blink {
         animation: blink 1s step-end infinite;
+      }
+      .animate-slide-up {
+        opacity: 0;
+        animation: slideUp 0.6s ease-out forwards;
+      }
+      .delay-100 { animation-delay: 100ms; }
+      .delay-200 { animation-delay: 200ms; }
+      .delay-300 { animation-delay: 300ms; }
+      .delay-400 { animation-delay: 400ms; }
+
+      /* Glitch Effect */
+      .glitch {
+        position: relative;
+        color: white;
+      }
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+      }
+      .glitch::before {
+        left: 2px;
+        text-shadow: -2px 0 #ff00c1;
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch-anim 5s infinite linear alternate-reverse;
+      }
+      .glitch::after {
+        left: -2px;
+        text-shadow: -2px 0 #00fff9;
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch-anim 2s infinite linear alternate-reverse;
+      }
+      @keyframes glitch-anim {
+        0% { clip: rect(61px, 9999px, 52px, 0); }
+        5% { clip: rect(33px, 9999px, 14px, 0); }
+        10% { clip: rect(89px, 9999px, 63px, 0); }
+        15% { clip: rect(4px, 9999px, 91px, 0); }
+        20% { clip: rect(18px, 9999px, 12px, 0); }
+        25% { clip: rect(61px, 9999px, 66px, 0); }
+        30% { clip: rect(82px, 9999px, 14px, 0); }
+        35% { clip: rect(33px, 9999px, 24px, 0); }
+        40% { clip: rect(13px, 9999px, 86px, 0); }
+        45% { clip: rect(51px, 9999px, 47px, 0); }
+        50% { clip: rect(2px, 9999px, 30px, 0); }
+        55% { clip: rect(78px, 9999px, 4px, 0); }
+        60% { clip: rect(24px, 9999px, 67px, 0); }
+        65% { clip: rect(58px, 9999px, 73px, 0); }
+        70% { clip: rect(8px, 9999px, 19px, 0); }
+        75% { clip: rect(92px, 9999px, 42px, 0); }
+        80% { clip: rect(19px, 9999px, 76px, 0); }
+        85% { clip: rect(46px, 9999px, 29px, 0); }
+        90% { clip: rect(72px, 9999px, 9px, 0); }
+        95% { clip: rect(3px, 9999px, 60px, 0); }
+        100% { clip: rect(54px, 9999px, 81px, 0); }
       }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
     "react/": "https://esm.sh/react@^19.2.4/",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
     "lucide-react": "https://esm.sh/lucide-react@^0.564.0",
-    "react": "https://esm.sh/react@^19.2.4"
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4",
+    "vite": "https://esm.sh/vite@^7.3.1"
   }
 }
 </script>
