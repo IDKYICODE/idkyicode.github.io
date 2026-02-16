@@ -34,7 +34,7 @@ const Experience: React.FC = () => {
   ];
 
   return (
-    <section id="experience" className="py-20 bg-[#f0f0f0] text-black relative">
+    <section id="experience" className="py-20 bg-[#f0f0f0] text-black relative overflow-hidden">
        {/* Graph Paper Background */}
        <div className="absolute inset-0 opacity-10" style={{
             backgroundImage: `linear-gradient(#999 1px, transparent 1px), linear-gradient(90deg, #999 1px, transparent 1px)`,
@@ -42,9 +42,13 @@ const Experience: React.FC = () => {
        }}></div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <h2 className="font-pixel text-3xl md:text-5xl text-black text-center mb-16 uppercase border-b-4 border-black inline-block left-1/2 relative transform -translate-x-1/2 pb-4">
-          Experience_Log
-        </h2>
+        
+        {/* Responsive Heading - Removed absolute transform centering */}
+        <div className="text-center mb-16">
+            <h2 className="font-pixel text-2xl sm:text-3xl md:text-5xl text-black uppercase border-b-4 border-black inline-block pb-4 break-words max-w-full">
+              Experience_Log
+            </h2>
+        </div>
 
         <div className="max-w-4xl mx-auto space-y-8">
           {experiences.map((exp, index) => (
@@ -54,9 +58,9 @@ const Experience: React.FC = () => {
               onMouseEnter={playHoverSound}
             >
               
-              {/* Icon Box */}
+              {/* Icon Box - Hidden on mobile, visible on medium screens+ */}
               <div className="hidden md:flex flex-col items-center">
-                 <div className="w-16 h-16 bg-black text-white flex items-center justify-center border-4 border-black shadow-[-4px_4px_0px_0px_rgba(0,0,0,0.3)] z-10">
+                 <div className="w-16 h-16 bg-black text-white flex items-center justify-center border-4 border-black shadow-[-4px_4px_0px_0px_rgba(0,0,0,0.3)] z-10 shrink-0">
                     {exp.icon}
                  </div>
                  {index !== experiences.length - 1 && (
@@ -65,25 +69,25 @@ const Experience: React.FC = () => {
               </div>
 
               {/* Content Card */}
-              <div className="flex-1">
-                <div className="bg-white border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all duration-200">
+              <div className="flex-1 w-full">
+                <div className="bg-white border-4 border-black p-4 sm:p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 w-full">
                     <div className="flex flex-col md:flex-row justify-between md:items-center mb-4 border-b-2 border-dashed border-gray-300 pb-2">
                         <div>
-                            <h3 className="font-pixel text-sm md:text-base leading-snug mb-1">{exp.role.toUpperCase()}</h3>
-                            <h4 className="font-terminal text-xl text-gray-600 font-bold">{exp.company}</h4>
+                            <h3 className="font-pixel text-sm md:text-base leading-snug mb-1 uppercase break-words">{exp.role}</h3>
+                            <h4 className="font-terminal text-lg sm:text-xl text-gray-600 font-bold">{exp.company}</h4>
                         </div>
-                        <div className="font-pixel text-[10px] text-white bg-black px-2 py-1 mt-2 md:mt-0 inline-block text-center">
+                        <div className="font-pixel text-[10px] text-white bg-black px-2 py-1 mt-2 md:mt-0 inline-block text-center self-start md:self-auto">
                             {exp.period}
                         </div>
                     </div>
                     
-                    <p className="font-terminal text-lg mb-4 text-gray-800">
+                    <p className="font-terminal text-base sm:text-lg mb-4 text-gray-800">
                         {exp.desc}
                     </p>
 
                     <div className="flex flex-wrap gap-2">
                         {exp.tech.map(t => (
-                            <span key={t} className="px-2 py-1 border-2 border-black font-terminal font-bold text-sm hover:bg-black hover:text-white transition-colors">
+                            <span key={t} className="px-2 py-1 border-2 border-black font-terminal font-bold text-xs sm:text-sm hover:bg-black hover:text-white transition-colors">
                                 #{t}
                             </span>
                         ))}

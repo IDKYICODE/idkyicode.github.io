@@ -22,6 +22,7 @@ const Contact: React.FC = () => {
     playClickSound();
 
     try {
+      // Note: Make sure to replace this with your actual access_key if needed
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
@@ -29,7 +30,7 @@ const Contact: React.FC = () => {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: "dc1cc774-427a-4055-ad6d-acd7be06ef2e", // Your API Key
+          access_key: "dc1cc774-427a-4055-ad6d-acd7be06ef2e", 
           subject: "Portfolio Retro Contact",
           from_name: "Pixel Portfolio",
           ...formData
@@ -56,15 +57,16 @@ const Contact: React.FC = () => {
     <section id="contact" className="py-20 bg-black text-green-500 font-terminal relative overflow-hidden">
       <div className="container mx-auto px-4 max-w-4xl relative z-10">
         
-        {/* Monitor Frame */}
-        <div className="bg-[#222] p-4 sm:p-8 rounded-xl border-t-8 border-l-8 border-gray-700 border-b-8 border-r-8 border-gray-800 shadow-2xl relative">
+        {/* Monitor Frame - Reduced padding on mobile (p-2) */}
+        <div className="bg-[#222] p-2 sm:p-8 rounded-xl border-t-8 border-l-4 sm:border-l-8 border-gray-700 border-b-8 border-r-4 sm:border-r-8 border-gray-800 shadow-2xl relative">
             
-            {/* Screen */}
-            <div className="bg-black p-6 sm:p-10 min-h-[500px] border-4 border-[#333] relative shadow-inner flex flex-col justify-center">
+            {/* Screen - Reduced padding on mobile (p-4) */}
+            <div className="bg-black p-4 sm:p-10 min-h-[500px] border-4 border-[#333] relative shadow-inner flex flex-col justify-center">
                 
                 <div className="mb-8 border-b border-green-800 pb-4">
-                    <h2 className="font-pixel text-xl sm:text-3xl text-white mb-2">TERMINAL_CONTACT_UPLINK</h2>
-                    <p className="text-green-600 flex items-center gap-2">
+                    {/* Responsive Heading Size */}
+                    <h2 className="font-pixel text-lg sm:text-2xl md:text-3xl text-white mb-2 break-words">TERMINAL_CONTACT_UPLINK</h2>
+                    <p className="text-green-600 flex flex-wrap items-center gap-2 text-sm sm:text-base">
                        STATUS: {status === 'idle' ? 'AWAITING INPUT...' : status === 'sending' ? 'TRANSMITTING...' : status === 'success' ? 'DATA UPLOADED.' : 'CONNECTION ERROR.'}
                        <span className="animate-blink block w-2 h-4 bg-green-500"></span>
                     </p>
@@ -72,16 +74,16 @@ const Contact: React.FC = () => {
 
                 {status === 'success' ? (
                   <div className="flex-grow flex flex-col items-center justify-center text-center animate-pulse">
-                    <div className="border-4 border-green-500 p-8 mb-4">
-                      <h3 className="font-pixel text-2xl text-white mb-4">MISSION ACCOMPLISHED</h3>
-                      <p className="font-terminal text-xl">MESSAGE TRANSMITTED SUCCESSFULLY.</p>
-                      <p className="font-terminal text-sm mt-4 text-green-700">AUTO-RESET IN 5 SECONDS...</p>
+                    <div className="border-4 border-green-500 p-4 sm:p-8 mb-4 w-full">
+                      <h3 className="font-pixel text-xl sm:text-2xl text-white mb-4">MISSION ACCOMPLISHED</h3>
+                      <p className="font-terminal text-lg sm:text-xl">MESSAGE TRANSMITTED.</p>
+                      <p className="font-terminal text-xs sm:text-sm mt-4 text-green-700">AUTO-RESET IN 5 SECONDS...</p>
                     </div>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6 w-full">
                       <div className="flex flex-col md:flex-row gap-2 md:items-center">
-                          <label htmlFor="name" className="whitespace-nowrap min-w-[100px] text-white opacity-80">&gt; ENTER NAME:</label>
+                          <label htmlFor="name" className="whitespace-normal md:whitespace-nowrap min-w-[100px] text-white opacity-80 text-sm sm:text-base">&gt; ENTER NAME:</label>
                           <input 
                               type="text" 
                               id="name" 
@@ -90,14 +92,14 @@ const Contact: React.FC = () => {
                               onChange={handleChange}
                               required
                               disabled={status === 'sending'}
-                              className="bg-transparent border-b-2 border-green-800 focus:border-green-400 text-green-400 w-full outline-none font-terminal text-xl py-1 px-2 disabled:opacity-50"
+                              className="bg-transparent border-b-2 border-green-800 focus:border-green-400 text-green-400 w-full outline-none font-terminal text-lg sm:text-xl py-1 px-2 disabled:opacity-50"
                               autoComplete="off"
                               onFocus={playHoverSound}
                           />
                       </div>
 
                       <div className="flex flex-col md:flex-row gap-2 md:items-center">
-                          <label htmlFor="email" className="whitespace-nowrap min-w-[100px] text-white opacity-80">&gt; ENTER EMAIL:</label>
+                          <label htmlFor="email" className="whitespace-normal md:whitespace-nowrap min-w-[100px] text-white opacity-80 text-sm sm:text-base">&gt; ENTER EMAIL:</label>
                           <input 
                               type="email" 
                               id="email" 
@@ -106,14 +108,14 @@ const Contact: React.FC = () => {
                               onChange={handleChange}
                               required
                               disabled={status === 'sending'}
-                              className="bg-transparent border-b-2 border-green-800 focus:border-green-400 text-green-400 w-full outline-none font-terminal text-xl py-1 px-2 disabled:opacity-50"
+                              className="bg-transparent border-b-2 border-green-800 focus:border-green-400 text-green-400 w-full outline-none font-terminal text-lg sm:text-xl py-1 px-2 disabled:opacity-50"
                               autoComplete="off"
                               onFocus={playHoverSound}
                           />
                       </div>
 
                       <div className="flex flex-col gap-2">
-                          <label htmlFor="message" className="text-white opacity-80">&gt; ENTER MESSAGE:</label>
+                          <label htmlFor="message" className="text-white opacity-80 text-sm sm:text-base">&gt; ENTER MESSAGE:</label>
                           <textarea 
                               id="message" 
                               name="message" 
@@ -122,7 +124,7 @@ const Contact: React.FC = () => {
                               required
                               disabled={status === 'sending'}
                               rows={5}
-                              className="bg-[#0a0a0a] border-2 border-green-800 focus:border-green-400 text-green-400 w-full outline-none font-terminal text-xl p-4 mt-2 resize-none disabled:opacity-50"
+                              className="bg-[#0a0a0a] border-2 border-green-800 focus:border-green-400 text-green-400 w-full outline-none font-terminal text-lg sm:text-xl p-2 sm:p-4 mt-2 resize-none disabled:opacity-50"
                               onFocus={playHoverSound}
                           ></textarea>
                       </div>
@@ -130,7 +132,7 @@ const Contact: React.FC = () => {
                       <button 
                           type="submit" 
                           disabled={status === 'sending'}
-                          className="mt-8 bg-green-700 text-black font-pixel text-sm px-8 py-4 hover:bg-green-500 hover:scale-105 transition-all w-full md:w-auto disabled:bg-gray-700 disabled:text-gray-400 disabled:hover:scale-100"
+                          className="mt-8 bg-green-700 text-black font-pixel text-xs sm:text-sm px-4 sm:px-8 py-4 hover:bg-green-500 hover:scale-105 transition-all w-full md:w-auto disabled:bg-gray-700 disabled:text-gray-400 disabled:hover:scale-100"
                           onMouseEnter={playHoverSound}
                       >
                           {status === 'sending' ? '[ TRANSMITTING... ]' : '[ TRANSMIT DATA ]'}
@@ -138,7 +140,7 @@ const Contact: React.FC = () => {
                   </form>
                 )}
 
-                <div className="mt-8 pt-4 border-t border-green-900 text-xs text-green-800 flex justify-between">
+                <div className="mt-8 pt-4 border-t border-green-900 text-[10px] sm:text-xs text-green-800 flex justify-between">
                     <span>ENCRYPTION: ENABLED</span>
                     <span>PORT: 8080</span>
                 </div>
